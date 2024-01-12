@@ -2,38 +2,43 @@ from tkinter import *
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter.filedialog import askopenfilename
-from PIL import Image, ImageTk
+from PIL import Image, ImageDraw, ImageFont
 
 
 app = tk.Tk()
 app.title("Watermarking")
-app.geometry("700x700")
+app.geometry("300x150")
 
 app_font=('times', 18, 'bold')
 
 l1=tk.Label(app,text="Watermark photo",width=30,font=app_font)
 l1.pack()
 
-canvas=tk.Canvas(app, width=500,height=500)
-canvas.pack()
-
-b1=tk.Button(app,text="Upload File", width=20,command=lambda:upload_file())
+b1=tk.Button(app,text="Upload and Watermark File", width=20,command=lambda:upload_file())
 b1.pack()
 
-b2=tk.Button(app, text="Quit", width=20, command=lambda:quit())
-b2.pack()
+b3=tk.Button(app, text="Quit", width=20, command=lambda:quit())
+b3.pack()
 
 def upload_file():
     messagebox.showinfo(title="Warning",
-                        message="Images biger than 500x500 will be resized")
-
+                        message="Watermarked img will be n\
+                        saved in same folder as py file")
     file = filedialog.askopenfilename()
     image = Image.open(file)
-    image = image.resize((500,500), Image.ADAPTIVE)
-    img = ImageTk.PhotoImage(image)
-    canvas.img = img
-    canvas.create_image(0,0, image=img, anchor=NW)
+    name = image.filename
+    filename = name.split("/")[(len(name.split("/"))-1)].split(".")
+    width, height = image.size
     
+    drawing = ImageDraw.Draw(image)
+    font = ImageFont.truetype("./font/Freedom-10eM.ttf", (width/4-height/4))
+    fill_color = (203,201,201)
+    watermark_text = "MAGNES"
+    x = width/2 - 50
+    y = height/2 - 50
+    position = (x, y)
+    drawing.text(xy = position, text = watermark_text, font = font, fill = fill_color)
+    image.save(f'{filename[0]}_watermarked.jpg')    
 
 def quit():
     app.quit()
