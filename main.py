@@ -22,8 +22,7 @@ b3.pack()
 
 def upload_file():
     messagebox.showinfo(title="Warning",
-                        message="Watermarked img will be n\
-                        saved in same folder as py file")
+                        message="Watermarked img will be saved in same folder as py file")
     file = filedialog.askopenfilename()
     image = Image.open(file)
     name = image.filename
@@ -31,7 +30,7 @@ def upload_file():
     width, height = image.size
     
     drawing = ImageDraw.Draw(image)
-    font = ImageFont.truetype("./font/Freedom-10eM.ttf", (width/4-height/4))
+    font = ImageFont.truetype("./font/Freedom-10eM.ttf", (width/6-height/6))
     fill_color = (203,201,201)
     watermark_text = "MAGNES"
     x = width/2 - 50
