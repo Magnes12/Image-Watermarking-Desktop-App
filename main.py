@@ -30,9 +30,9 @@ def upload_file():
     width, height = image.size
     
     drawing = ImageDraw.Draw(image)
-    font = ImageFont.truetype("./font/Freedom-10eM.ttf", (width/6-height/6))
+    font = ImageFont.truetype("./font/font_name", (width/6-height/6))
     fill_color = (203,201,201)
-    watermark_text = "MAGNES"
+    watermark_text = "WATERMARK_TEXT"
     x = width/2 - 50
     y = height/2 - 50
     position = (x, y)
